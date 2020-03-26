@@ -127,14 +127,14 @@ $video_agency_branding = esc_attr( get_option('video_agency_branding') );
                             <div><label for="video_title_label">
                                     Title Label          </label>
                             </div>                     
-                            <input type="text" name="video_title_label" id="video_title_label" autocomplete="off" value="<?php echo  $title_label ; ?>">
+                            <input type="text" name="video_title_label" id="video_title_label" autocomplete="off" class="regular-text" value="<?php echo  $title_label ; ?>">
                         </div>
 
                         <div class="input-text-wrap" id="description-wrap">
                             <div>
                                 <label for="video_menu_label">Menu Label</label>
                             </div>                            
-                            <input type="text" name="video_menu_label" id="video_menu_label" autocomplete="off" value="<?php echo  $menu_label ; ?>">
+                            <input type="text" name="video_menu_label" id="video_menu_label" class="regular-text" autocomplete="off" value="<?php echo  $menu_label ; ?>">
                         </div>
                     
                     </div>
@@ -153,7 +153,7 @@ $video_agency_branding = esc_attr( get_option('video_agency_branding') );
                             <div>
                                 <label for="video_menu_label">Title</label>
                             </div>                            
-                            <input type="text" name="video_agency_title" id="video_agency_title" autocomplete="off" value="<?php echo $video_agency_title;  ?>">
+                            <input type="text" name="video_agency_title" id="video_agency_title" autocomplete="off" class="regular-text" value="<?php echo $video_agency_title;  ?>">
                         </div>
 
                         <div class="input-text-wrap video_agency_input" >
@@ -170,7 +170,7 @@ $video_agency_branding = esc_attr( get_option('video_agency_branding') );
                             <div>
                                 <label for="video_menu_label">Button Link</label>
                             </div>                            
-                            <input type="text" name="video_agency_button_link" id="video_agency_button_link" autocomplete="off" value="<?php echo $video_agency_button_link ?>">
+                            <input type="text" name="video_agency_button_link" id="video_agency_button_link" class="regular-text" autocomplete="off" value="<?php echo $video_agency_button_link ?>">
                             <div><small>Ex: https://mywebsite.com/contact-us</small></div>
                         </div>
 
