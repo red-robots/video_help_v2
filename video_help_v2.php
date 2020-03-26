@@ -124,7 +124,7 @@ function create_videolink_cpt() {
 		'exclude_from_search' => true,
 		'show_in_rest' => true,
 		'publicly_queryable' => true,
-		'capability_type' => 'page',
+		'capability_type' => 'page',		
 	);
 	register_post_type( 'video_help', $args );
 
@@ -388,10 +388,13 @@ add_action( 'admin_enqueue_scripts', 'customvideohelp_load_wp_admin_style' );
 
 function update_field_order(){
 	global $wpdb;
-	foreach ($_POST['field_id'] as $position => $item) {
-		$wpdb->query("UPDATE wp_posts SET list_order='{$position}' where id=$item");		
+	$fields = explode('&', $_POST['field_id']);
+	//var_dump($fields);
+	foreach ( $fields as $position => $item ) {
+		$wpdb->query("UPDATE wp_posts SET menu_order=0 where id=$item");		
 	}
 	die();
 }
 add_action('wp_ajax_update_field_order', 'update_field_order' );
+add_action( 'wp_ajax_nopriv_update_field_order', 'update_field_order' );
 
