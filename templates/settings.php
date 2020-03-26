@@ -144,7 +144,9 @@ $video_agency_branding = esc_attr( get_option('video_agency_branding') );
                 <h2>Agency</h2>
                 <div class="">                        
                         <div class="input-text-wrap video_agency_input">
+                            <label for="video_activate_agency_link">
                             <input type="checkbox" name="video_activate_agency_link" id="video_activate_agency_link" value="1" <?php echo ( $video_activate_agency_link ) ? ' checked ':''; ?>> Activate Agency Link
+                            </label>
                         </div>
 
                         <div class="input-text-wrap video_agency_input" >

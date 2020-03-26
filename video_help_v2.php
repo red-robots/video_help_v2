@@ -314,7 +314,7 @@ function customvideoviewrenderfunc(){
 				<?php echo esc_attr( get_option('video_agency_description') ); ?>
 			</div>
 			<div class="btn-holder">
-				<a href="<?php echo esc_attr( get_option('video_agency_button_link') ); ?>" class="contact" style="color: <?php echo esc_attr( get_option('video_agency_button_text_color') ); ?>; background-color: <?php echo esc_attr( get_option('video_agency_button_color') ); ?>">Contact Us Today</a>
+				<a href="<?php echo esc_attr( get_option('video_agency_button_link') ); ?>" target="_blank" class="contact" style="color: <?php echo esc_attr( get_option('video_agency_button_text_color') ); ?>; background-color: <?php echo esc_attr( get_option('video_agency_button_color') ); ?>">Contact Us Today</a>
 			</div>
 		</div>
 			

@@ -1674,6 +1674,9 @@ textarea{padding-left:3px;width:100%}
 .video_agency_input{margin-bottom:10px}
 .activate_agency{display:block;width:95%;height:200px;margin-top:20px}
 .activate_agency .activated{width:47%;float:right;display:block;padding:10px}
+.activate_agency .activated .logo-holder img{max-height:20px;width:auto}
+.activate_agency .activated .title-holder h2{margin:10px 0 0;font-size:1.5em}
+.activate_agency .activated .description-holder{margin:20px 0}
 .activate_agency .activated .btn-holder{margin:15px auto 0;text-align:center;display:block}
 .activate_agency .activated .btn-holder a.contact{padding:10px 15px;text-decoration:none;text-align:center;margin:0 auto;display:block}
 .activate_agency .activated .btn-holder a:hover{text-decoration:none}
