@@ -57,14 +57,17 @@
 	float: left;
 	width: 45%;
 	box-sizing: border-box;
+    display: block;
 	/*border:1px solid red;*/
 }
 .custom_toc_and_video_container .custom_half_video {
 	// float: left;
-	width: 45%;
+	width: 49%;
 	box-sizing: border-box;
-	position: fixed;
-	left: 52%;	
+	/*position: absolute;*/
+	/*left: 50%;	*/
+    display: block;
+    float: right;
 	/*border:1px solid red;*/
 }
 .custom_post_video_title_and_content{
@@ -173,10 +176,34 @@
 
 .activate_agency{
     display: block;
-    float: right;
-    width: 45%;
-    left: 52%;
-    position: fixed;
-    top: 614px;
+    /*float: right;*/
+    width: 95%;
+    /*left: 50%;
+    position: absolute;  */  
     height: 200px;
+    margin-top: 20px;
+
+    .activated{
+        width: 47%;
+        float: right;
+        display: block;
+        padding: 10px;
+
+        .btn-holder{
+            margin: 15px auto 0;
+            text-align: center;
+            display: block;
+
+            a.contact{                
+                padding: 10px 15px;
+                text-decoration: none;
+                text-align: center;
+                margin: 0 auto;
+                display: block;
+            }
+            a:hover{
+                text-decoration: none;
+            }
+        }
+    }
 }

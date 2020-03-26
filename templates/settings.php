@@ -17,13 +17,13 @@ if( array_key_exists( 'custom_video_submit_values', $_POST) ){
     $title_label    = isset( $_POST['video_title_label'] ) ? trim($_POST['video_title_label']) : 'Table of Contents';
 
 
-    $video_activate_agency_link     = trim($_POST['video_activate_agency_link']);
-    $video_agency_title             = trim($_POST['video_agency_title']);    
-    $video_agency_button_link       = trim($_POST['video_agency_button_link']);
-    $video_agency_button_color      = trim($_POST['video_agency_button_color']);
-    $video_agency_button_text_color = trim($_POST['video_agency_button_text_color']);
-    $video_agency_background_color  = trim($_POST['video_agency_background_color']);
-    $video_agency_description       = trim($_POST['video_agency_description']);
+    $video_activate_agency_link     = isset($_POST['video_activate_agency_link']) ? trim($_POST['video_activate_agency_link']) : '';
+    $video_agency_title             = isset($_POST['video_agency_title']) ? trim($_POST['video_agency_title']) : '';    
+    $video_agency_button_link       = isset($_POST['video_agency_button_link']) ? trim($_POST['video_agency_button_link']) : '';
+    $video_agency_button_color      = isset($_POST['video_agency_button_color']) ? trim($_POST['video_agency_button_color']) : '';
+    $video_agency_button_text_color = isset($_POST['video_agency_button_text_color']) ? trim($_POST['video_agency_button_text_color']) : '';
+    $video_agency_background_color  = isset($_POST['video_agency_background_color']) ? trim($_POST['video_agency_background_color']) : '';
+    $video_agency_description       = isset($_POST['video_agency_description']) ? trim($_POST['video_agency_description']) : '';
 
     $video_agency_branding          = $_FILES['video_agency_branding'];
 

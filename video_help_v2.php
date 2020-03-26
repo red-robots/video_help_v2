@@ -300,16 +300,29 @@ function customvideoviewrenderfunc(){
 
 	<div class="clearfix"></div>
 
+	<?php if( esc_attr( get_option('video_activate_agency_link') ) ): ?>
 	<div class="activate_agency">
+
+		<div class="activated" style="background-color: <?php echo esc_attr( get_option('video_agency_background_color') ); ?>">
 			<div class="logo-holder">
 				<img src="<?php echo esc_attr( get_option('video_agency_branding') ); ?>" alt="">
 			</div>
 			<div class="title-holder">
-				<h3><?php echo esc_attr( get_option('video_agency_title') ); ?></h3>
+				<h2><?php echo esc_attr( get_option('video_agency_title') ); ?></h2>
 			</div>
+			<div class="description-holder">
+				<?php echo esc_attr( get_option('video_agency_description') ); ?>
+			</div>
+			<div class="btn-holder">
+				<a href="<?php echo esc_attr( get_option('video_agency_button_link') ); ?>" class="contact" style="color: <?php echo esc_attr( get_option('video_agency_button_text_color') ); ?>; background-color: <?php echo esc_attr( get_option('video_agency_button_color') ); ?>">Contact Us Today</a>
+			</div>
+		</div>
+			
 	</div>
 
 	<div class="clearfix"></div>
+
+	<?php endif; ?>
 
 	
 	<?php 
