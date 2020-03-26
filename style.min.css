@@ -1649,7 +1649,7 @@ textarea{padding-left:3px;width:100%}
 .custom_post_video_title_and_content .custom_post_title{font-weight:bold;margin:20px 0;font-size:20px}
 .custom_toc_and_video_container{width:95%;margin:0;float:left;position:relative;display:block}
 .custom_toc_and_video_container .custom_half_chapter{float:left;width:45%;-webkit-box-sizing:border-box;box-sizing:border-box;display:block}
-.custom_toc_and_video_container .custom_half_video{width:49%;-webkit-box-sizing:border-box;box-sizing:border-box;display:block;float:right}
+.custom_toc_and_video_container .custom_half_video{width:49%;-webkit-box-sizing:border-box;box-sizing:border-box;position:relative;display:block;float:right}
 .custom_post_video_title_and_content{border:1px solid #e1e1e1;background-color:#fff;padding:8px}
 .custom_post_loader{margin:0 auto}
 .customvideoloader{border:6px solid #f3f3f3;border-top:6px solid #3498db;border-radius:50%;width:60px;height:60px;-webkit-animation:customspin 2s linear infinite;animation:customspin 2s linear infinite}
@@ -1659,7 +1659,7 @@ textarea{padding-left:3px;width:100%}
 100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
 }@keyframes customspin{0%{-webkit-transform:rotate(0);transform:rotate(0)}
 100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
-}.lds-dual-ring{display:none;width:64px;height:64px;margin:0;position:absolute;left:45%;top:50%;-ms-transform:translateY(-50%);-webkit-transform:translateY(-50%);transform:translateY(-50%)}
+}.lds-dual-ring{display:none;width:64px;height:64px;margin:auto;position:absolute;left:45%;top:50%;-ms-transform:translateY(-50%);-webkit-transform:translateY(-50%);transform:translateY(-50%)}
 .lds-dual-ring:after{content:" ";display:block;width:46px;height:46px;margin:1px;border-radius:50%;border:5px solid #369;border-color:#369 transparent #369 transparent;-webkit-animation:lds-dual-ring 1.2s linear infinite;animation:lds-dual-ring 1.2s linear infinite}
 @-webkit-keyframes lds-dual-ring{0%{-webkit-transform:rotate(0);transform:rotate(0)}
 100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
@@ -1673,7 +1673,7 @@ textarea{padding-left:3px;width:100%}
 .column_holder .column-right{float:right}
 .video_agency_input{margin-bottom:10px}
 .activate_agency{display:block;width:95%;height:200px;margin-top:20px}
-.activate_agency .activated{width:47%;float:right;display:block;padding:10px}
+.activate_agency .activated{width:46%;float:right;display:block;padding:15px}
 .activate_agency .activated .logo-holder img{max-height:20px;width:auto}
 .activate_agency .activated .title-holder h2{margin:10px 0 0;font-size:1.5em}
 .activate_agency .activated .description-holder{margin:20px 0}
