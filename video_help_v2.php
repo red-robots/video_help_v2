@@ -232,10 +232,6 @@ if (class_exists('videohelpmetabox')) {
 };
 
 
-
-
-
-
 class Video_Help_Custom_Page_Walker extends Walker_Page {
 
     function start_el(&$output, $page, $depth = 0, $args = array(), $current_page = 0) {
@@ -251,7 +247,7 @@ class Video_Help_Custom_Page_Walker extends Walker_Page {
 			$is_parent = ' page_item_has_children';
 		}
 		
-        $output .=  '<li class="' . $css_class . $is_parent . '">';
+        $output .=  '<li id="field_id_'. $page->ID .'" class="' . $css_class . $is_parent . ' ui-state-default">';
 		$output .= '<a href="' . get_permalink($page->ID) . '"  data-pageid='.$page->ID.'>' . $link_before;
 
 		$output .= apply_filters( 'the_title', $page->post_title, $page->ID );
@@ -278,7 +274,7 @@ function customvideoviewrenderfunc(){
 		<h1 class="wp-heading-inline"><?php echo ($titleLabel) ? $titleLabel : 'Table of Contents'; ?></h1>
 		<div class="custom_half_chapter">
 			<div class="custom_video_help_container">				
-				<ul>
+				<ul id="new_fields">
 					<?php echo wp_list_pages($args_for_list_pages); ?>
 				</ul>
 			</div>
@@ -368,9 +364,15 @@ function customvideohelp_load_wp_admin_style($hook) {
         //if($hook != 'toplevel_page_customviewvideo') {
 		//	return;
         //}
-        wp_enqueue_style( 'custom_wp_admin_css', CUSTOM_VIDEO_PLUGIN_URI . 'style.css' );        
+            
 
         wp_enqueue_style( 'font-awesome-free', '//use.fontawesome.com/releases/v5.2.0/css/all.css' );
+
+        // jquery ui
+        wp_enqueue_style( 'jquery-ui-custom-css', CUSTOM_VIDEO_PLUGIN_URI . 'css/jquery-ui.css' );
+        wp_enqueue_script( 'jquery-ui-custom-js', 'https://code.jquery.com/ui/1.12.0/jquery-ui.min.js', array('jquery'),'', true );
+
+        wp_enqueue_style( 'custom_wp_admin_css', CUSTOM_VIDEO_PLUGIN_URI . 'style.css' );    
 		
 		//load the JS and localize it 
 		wp_register_script( 'customvideojs',  CUSTOM_VIDEO_PLUGIN_URI . 'js/scripts.js' );
@@ -384,5 +386,12 @@ function customvideohelp_load_wp_admin_style($hook) {
 add_action( 'admin_enqueue_scripts', 'customvideohelp_load_wp_admin_style' );
 
 
-
+function update_field_order(){
+	global $wpdb;
+	foreach ($_POST['field_id'] as $position => $item) {
+		$wpdb->query("UPDATE wp_posts SET list_order='{$position}' where id=$item");		
+	}
+	die();
+}
+add_action('wp_ajax_update_field_order', 'update_field_order' );
 

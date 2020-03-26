@@ -35,6 +35,22 @@ jQuery(document).ready(function( $ ){
 				
 			}
 		})				
-	})
+	});
+
+	$("#new_fields").sortable({
+		cursor:'move',
+		update:function(){
+			var order = $('#new_fields').sortable('serialize');
+			console.log('Order: ' + order );
+			$.ajax({
+				type: "POST",
+				url: customvideoadminscripts.adminajax,
+				data: {
+					action: 'update_field_order',
+					field_id: order
+				}
+			});
+	}});
+	$("#new_fields").disableSelection();
 	
 });

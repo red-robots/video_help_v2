@@ -1680,6 +1680,7 @@ textarea{padding-left:3px;width:100%}
 .activate_agency .activated .btn-holder{margin:15px auto 0;text-align:center;display:block}
 .activate_agency .activated .btn-holder a.contact{padding:10px 15px;text-decoration:none;text-align:center;margin:0 auto;display:block}
 .activate_agency .activated .btn-holder a:hover{text-decoration:none}
+.ui-state-default{border:0;background:white}
 .sticky{display:block}
 .hentry{margin:0 0 1.5em}
 .byline,.updated:not(.published){display:none}
