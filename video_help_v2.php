@@ -277,8 +277,7 @@ function customvideoviewrenderfunc(){
 	<div class="custom_toc_and_video_container">
 		<h1 class="wp-heading-inline"><?php echo ($titleLabel) ? $titleLabel : 'Table of Contents'; ?></h1>
 		<div class="custom_half_chapter">
-			<div class="custom_video_help_container">
-				
+			<div class="custom_video_help_container">				
 				<ul>
 					<?php echo wp_list_pages($args_for_list_pages); ?>
 				</ul>
@@ -291,14 +290,28 @@ function customvideoviewrenderfunc(){
 			
 			<div class="custom_post_title"></div>
 			<div class="custom_post_video">
-				<div class="embed-container">
-					
+				<div class="embed-container">					
 				</div>
 			</div>
 			<div class="custom_post_content"></div>
 		</div>
 		
 	</div>	
+
+	<div class="clearfix"></div>
+
+	<div class="activate_agency">
+			<div class="logo-holder">
+				<img src="<?php echo esc_attr( get_option('video_agency_branding') ); ?>" alt="">
+			</div>
+			<div class="title-holder">
+				<h3><?php echo esc_attr( get_option('video_agency_title') ); ?></h3>
+			</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
 	<?php 
 	
 }	
@@ -342,9 +355,7 @@ function customvideohelp_load_wp_admin_style($hook) {
         //if($hook != 'toplevel_page_customviewvideo') {
 		//	return;
         //}
-        wp_enqueue_style( 'custom_wp_admin_css', CUSTOM_VIDEO_PLUGIN_URI . 'style.css' );
-
-        
+        wp_enqueue_style( 'custom_wp_admin_css', CUSTOM_VIDEO_PLUGIN_URI . 'style.css' );        
 
         wp_enqueue_style( 'font-awesome-free', '//use.fontawesome.com/releases/v5.2.0/css/all.css' );
 		

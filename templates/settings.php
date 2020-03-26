@@ -13,23 +13,66 @@ if( array_key_exists( 'custom_video_submit_values', $_POST) ){
 
     $edit_video     = trim($_POST['edit_video_role']);
     $view_video     = trim($_POST['view_video_role']);
-    $menu_label     = trim($_POST['video_menu_label']);
-    $title_label    = trim($_POST['video_title_label']);
+    $menu_label     = isset( $_POST['video_menu_label'] ) ? trim($_POST['video_menu_label']) : 'Video Help';
+    $title_label    = isset( $_POST['video_title_label'] ) ? trim($_POST['video_title_label']) : 'Table of Contents';
+
+
+    $video_activate_agency_link     = trim($_POST['video_activate_agency_link']);
+    $video_agency_title             = trim($_POST['video_agency_title']);    
+    $video_agency_button_link       = trim($_POST['video_agency_button_link']);
+    $video_agency_button_color      = trim($_POST['video_agency_button_color']);
+    $video_agency_button_text_color = trim($_POST['video_agency_button_text_color']);
+    $video_agency_background_color  = trim($_POST['video_agency_background_color']);
+    $video_agency_description       = trim($_POST['video_agency_description']);
+
+    $video_agency_branding          = $_FILES['video_agency_branding'];
+
+    if( $_FILES['video_agency_branding']['name'] != '' ){
+        $uploadedfile = $_FILES['video_agency_branding'];
+        $upload_overrides = array( 'test_form' => false );
+        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+        $imageurl = "";
+        if ( $movefile && ! isset( $movefile['error'] ) ) {
+           $imageurl = $movefile['url'];
+           update_option('video_agency_branding', esc_url( $imageurl ) );          
+        } 
+    }
+ 
+    
 
     if( $edit_video && $view_video){
-        update_option('edit_video_role', $edit_video);
-        update_option('view_video_role', $view_video);
-        update_option('video_help_menu_label', $menu_label);
-        update_option('video_help_title_label', $title_label);
-        $message = 'Roles have been saved!';
+        update_option('edit_video_role', sanitize_text_field( $edit_video )  );
+        update_option('view_video_role', sanitize_text_field( $view_video ) );
+        update_option('video_help_menu_label', sanitize_text_field( $menu_label ) );
+        update_option('video_help_title_label', sanitize_text_field( $title_label ) );
+
+        update_option('video_activate_agency_link', sanitize_text_field( $video_activate_agency_link ) );
+        update_option('video_agency_title', sanitize_text_field( $video_agency_title ) );
+        update_option('video_agency_button_link', esc_url( $video_agency_button_link ) );
+        update_option('video_agency_button_color', sanitize_text_field( $video_agency_button_color ) );
+        update_option('video_agency_button_text_color', sanitize_text_field( $video_agency_button_text_color ) );
+        update_option('video_agency_background_color', sanitize_text_field( $video_agency_background_color ) );
+        update_option('video_agency_description', sanitize_text_field( $video_agency_description ) );
+
+        $message = 'Settings have been saved!';
     }
 
 }
 
-$edit_video = get_option('edit_video_role');
-$view_video = get_option('view_video_role');
-$menu_label = get_option('video_help_menu_label');
-$title_label = get_option('video_help_title_label');
+$edit_video = esc_attr( get_option('edit_video_role') );
+$view_video = esc_attr( get_option('view_video_role') );
+$menu_label = esc_attr( get_option('video_help_menu_label') );
+$title_label = esc_attr( get_option('video_help_title_label') );
+
+$video_activate_agency_link = esc_attr( get_option('video_activate_agency_link') );
+$video_agency_title = esc_attr( get_option('video_agency_title') );
+$video_agency_button_link = esc_attr( get_option('video_agency_button_link') );
+$video_agency_button_color = esc_attr( get_option('video_agency_button_color') );
+$video_agency_button_text_color = esc_attr( get_option('video_agency_button_text_color') );
+$video_agency_background_color = esc_attr( get_option('video_agency_background_color') );
+$video_agency_description = esc_attr( get_option('video_agency_description') );
+
+$video_agency_branding = esc_attr( get_option('video_agency_branding') );
 
 ?>
 
@@ -43,8 +86,8 @@ $title_label = get_option('video_help_title_label');
     <h1 style="font-size: 30px">Roles</h1>
 
     <p>Use these options to specify roles.</p>
-    <form action="" method="post">
-        <table class="form-table">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <table class="form-table" >
             <tbody>
                 <tr>
                     <th scope="row" >
@@ -84,14 +127,14 @@ $title_label = get_option('video_help_title_label');
                             <div><label for="video_title_label">
                                     Title Label          </label>
                             </div>                     
-                            <input type="text" name="video_title_label" id="video_title_label" autocomplete="off" value="<?php echo esc_attr( $title_label ); ?>">
+                            <input type="text" name="video_title_label" id="video_title_label" autocomplete="off" value="<?php echo  $title_label ; ?>">
                         </div>
 
                         <div class="input-text-wrap" id="description-wrap">
                             <div>
                                 <label for="video_menu_label">Menu Label</label>
                             </div>                            
-                            <input type="text" name="video_menu_label" id="video_menu_label" autocomplete="off" value="<?php echo esc_attr( $menu_label ); ?>">
+                            <input type="text" name="video_menu_label" id="video_menu_label" autocomplete="off" value="<?php echo  $menu_label ; ?>">
                         </div>
                     
                     </div>
@@ -101,29 +144,67 @@ $title_label = get_option('video_help_title_label');
                 <h2>Agency</h2>
                 <div class="">                        
                         <div class="input-text-wrap video_agency_input">
-                            <input type="checkbox" name="video_activate_agency_link" id="video_activate_agency_link"> Activate Agency Link
+                            <input type="checkbox" name="video_activate_agency_link" id="video_activate_agency_link" value="1" <?php echo ( $video_activate_agency_link ) ? ' checked ':''; ?>> Activate Agency Link
                         </div>
 
                         <div class="input-text-wrap video_agency_input" >
                             <div>
                                 <label for="video_menu_label">Title</label>
                             </div>                            
-                            <input type="text" name="video_agency_title" id="video_agency_title" autocomplete="off">
+                            <input type="text" name="video_agency_title" id="video_agency_title" autocomplete="off" value="<?php echo $video_agency_title;  ?>">
                         </div>
 
                         <div class="input-text-wrap video_agency_input" >
                             <div>
                                 <label for="video_menu_label">Branding</label>
                             </div>                            
-                            <input type="file" name="video_agency_branding" id="video_agency_branding" autocomplete="off">
+                            <input type="file" name="video_agency_branding" id="video_agency_branding">
+                            <?php if( $video_agency_branding ): ?>
+                                <img src="<?php echo $video_agency_branding ?>" alt="" style="max-height:20px; width: auto; ">
+                            <?php endif; ?>
                         </div>
 
                         <div class="input-text-wrap video_agency_input" >
                             <div>
                                 <label for="video_menu_label">Button Link</label>
                             </div>                            
-                            <input type="text" name="video_agency_button_link" id="video_agency_button_link" autocomplete="off">
+                            <input type="text" name="video_agency_button_link" id="video_agency_button_link" autocomplete="off" value="<?php echo $video_agency_button_link ?>">
                             <div><small>Ex: https://mywebsite.com/contact-us</small></div>
+                        </div>
+
+
+                        <div class="input-text-wrap video_agency_input" >
+                            <div>
+                                <label for="video_menu_label">Button Color</label>
+                            </div>                            
+                            <input type="text" name="video_agency_button_color" id="video_agency_button_color" autocomplete="off" class="cpa-color-picker" value="<?php echo $video_agency_button_color; ?>">                            
+                        </div>
+
+                        <div class="input-text-wrap video_agency_input" >
+                            <div>
+                                <label for="video_menu_label">Button Text Color</label>
+                            </div>                            
+                            <input type="text" name="video_agency_button_text_color" id="video_agency_button_text_color" autocomplete="off" class="cpa-color-picker" value="<?php echo $video_agency_button_text_color; ?>">                            
+                        </div>
+
+
+                        <div class="input-text-wrap video_agency_input" >
+                            <div>
+                                <label for="video_menu_label">Background Color</label>
+                            </div>                            
+                            <input type="text" name="video_agency_background_color" id="video_agency_background_color" autocomplete="off" class="cpa-color-picker" value="<?php echo $video_agency_background_color; ?>">                            
+                        </div>
+
+
+                        <div class="input-text-wrap video_agency_input" >
+                            <div>
+                                <label for="video_menu_label">Description</label>
+                            </div>                            
+                            <?php
+                                $content = get_option('video_agency_description');
+                                wp_editor( $content, 'video_agency_description', $settings = array('textarea_rows'=> '10') );
+
+                            ?>                            
                         </div>
                     
                 </div>
