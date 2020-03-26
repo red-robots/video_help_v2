@@ -1,0 +1,19 @@
+{
+    "name": "redrobots/video_help_v2",
+    "description": "This is a video plugin.",
+    "type": "project",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "hermie",
+            "email": "hermiebarit@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Inc\\" : "./inc"
+        }
+    }
+}

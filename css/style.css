@@ -82,3 +82,27 @@
     transform: rotate(360deg);
   }
 }
+
+
+.clearfix{
+    clear: both;
+}
+
+.column_holder .column-left{
+    display: inline-block;
+     width: 49.5%;
+}
+
+.column_holder  .column-right{
+        width: 49.5%;
+        display: inline-block;
+
+  }
+
+.column-left{
+        float: left;
+    }
+
+    .column-right{
+        float: right;
+    }

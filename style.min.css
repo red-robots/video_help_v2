@@ -1666,6 +1666,12 @@ textarea{padding-left:3px;width:100%}
 }@keyframes lds-dual-ring{0%{-webkit-transform:rotate(0);transform:rotate(0)}
 100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
 }#collapse-button{-webkit-box-shadow:none;box-shadow:none;text-shadow:none}
+.clearfix{clear:both}
+.column_holder{display:block;clear:both}
+.column_holder .column-left,.column_holder .column-right{width:49.5%;display:inline-block}
+.column_holder .column-left{float:left}
+.column_holder .column-right{float:right}
+.video_agency_input{margin-bottom:10px}
 .sticky{display:block}
 .hentry{margin:0 0 1.5em}
 .byline,.updated:not(.published){display:none}

@@ -1,17 +1,59 @@
 <?php
 /**
- * Plugin Name: Video Help
+ * Plugin Name: Video Help v2
  * Plugin URI: https://bellaworksweb.com/
  * Description: VH Admin
  * Version: 1.1.2 
  * Author: Austin Crane
  */
 
+
+if( ! defined('ABSPATH') ){
+    die('Hey! What are you doing here?');
+}
+
+/*
+if( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ){
+    require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+}
+
+
+function activate_video_help_plugin(){
+    \Inc\Base\Activate::activate();
+}
+register_activation_hook( __FILE__, 'activate_video_help_plugin' );
+
+function deactivate_video_help_plugin(){
+    \Inc\Base\Deactivate::deactivate();
+}
+register_deactivation_hook( __FILE__, 'deactivate_video_help_plugin' );
+
+
+if( class_exists('Inc\\Init') )
+{
+    Inc\Init::register_services();
+}
+
+*/
+
+
+function activate_video_help_plugin(){
+    $menuLabel = "Video Help";
+    $titleLabel = "Table of Contents";
+    update_option( 'video_help_menu_label', $menuLabel);
+    update_option( 'video_help_title_label', $titleLabel);
+}
+register_activation_hook( __FILE__, 'activate_video_help_plugin' );
+
+function deactivate_video_help_plugin(){
+    delete_option( 'video_help_menu_label' );
+    delete_option( 'video_help_title_label' );
+}
+register_deactivation_hook( __FILE__, 'deactivate_video_help_plugin' );
+
+
 define( 'CUSTOM_VIDEO_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
 define( 'CUSTOM_VIDEO_PLUGIN_URI', plugin_dir_url( __FILE__ ));
-
-
- 
 
 
 // Register Custom Post Type video_link
@@ -20,16 +62,15 @@ define( 'CUSTOM_VIDEO_PLUGIN_URI', plugin_dir_url( __FILE__ ));
 //Add view videos 
 add_action('admin_menu', 'addcustomvideoview');
 function addcustomvideoview(){
-    add_menu_page(
-    	'Video Help', 
-    	'Video Help', 
-    	'manage_options', 
-    	'customviewvideo', 
-    	'customvideoviewrenderfunc',
-    	'dashicons-video-alt3',
-    	1
 
-    );
+	$menuTitle = ( get_option( 'video_help_menu_label' ) ) ? get_option( 'video_help_menu_label' ) : 'Video Help';
+
+    add_menu_page( $menuTitle, $menuTitle, 	'manage_options', 'customviewvideo', 'customvideoviewrenderfunc', 'dashicons-video-alt3', 	1 );
+
+    add_submenu_page('customviewvideo', 'Videos', 'Videos', 'manage_options', 'customviewvideo'); 
+    add_submenu_page( 'customviewvideo', 'VH Admin', 'VH Admin', 'manage_options', 'edit.php?post_type=video_help' );
+    add_submenu_page( 'customviewvideo', 'VH Admin New', 'New Video', 'manage_options', 'post-new.php?post_type=video_help' );
+    add_submenu_page( 'customviewvideo', 'Settings', 'Settings', 'manage_options', 'video-settings', 'custom_video_settings_callback' );
 }
 
 
@@ -38,7 +79,7 @@ function create_videolink_cpt() {
 	$labels = array(
 		'name' => __( 'VH Admin', 'Post Type General Name', 'videolinktextdomain' ),
 		'singular_name' => __( 'VH Admin', 'Post Type Singular Name', 'videolinktextdomain' ),
-		/*'menu_name' => __( 'VH Admin', 'videolinktextdomain' ),
+		'menu_name' => __( 'VH Admin', 'videolinktextdomain' ),
 		'name_admin_bar' => __( 'VH Admin', 'videolinktextdomain' ),
 		'archives' => __( 'VH Admin Archives', 'videolinktextdomain' ),
 		'attributes' => __( 'VH Admin Attributes', 'videolinktextdomain' ),
@@ -62,7 +103,7 @@ function create_videolink_cpt() {
 		'uploaded_to_this_item' => __( 'Uploaded to this VH Admin', 'videolinktextdomain' ),
 		'items_list' => __( 'VH Admin list', 'videolinktextdomain' ),
 		'items_list_navigation' => __( 'VH Admin list navigation', 'videolinktextdomain' ),
-		'filter_items_list' => __( 'Filter VH Admin list', 'videolinktextdomain' ),*/
+		'filter_items_list' => __( 'Filter VH Admin list', 'videolinktextdomain' ),
 	);
 	$args = array(
 		'label' => __( 'video_link', 'videolinktextdomain' ),
@@ -91,57 +132,12 @@ function create_videolink_cpt() {
 add_action( 'admin_menu', 'create_videolink_cpt', 0 );
 
 
-function videos_custom_admin_menu() { 
-    add_submenu_page('customviewvideo', 'Videos', 'Videos', 'manage_options', 'customviewvideo'); 
-    add_submenu_page( 'customviewvideo', 'VH Admin', 'VH Admin', 'manage_options', 'edit.php?post_type=video_help' );
-    add_submenu_page( 'customviewvideo', 'VH Admin New', 'New Video', 'manage_options', 'post-new.php?post_type=video_help' );
-    add_submenu_page( 'customviewvideo', 'Settings', 'Settings', 'manage_options', 'video-settings', 'custom_video_settings_callback' );   
-}  
-add_action('admin_menu', 'videos_custom_admin_menu'); 
 
 function custom_video_settings_callback()
 {
 	require_once ( CUSTOM_VIDEO_PLUGIN_DIR . 'templates/settings.php');
 }
 
-// Register Taxonomy Category
-// Taxonomy Key: category
-/*
-add_action( 'init', 'create_category_tax' );
-function create_category_tax() {
-
-	$labels = array(
-		'name'              => _x( 'Categories', 'taxonomy general name', 'videolinktextdomain' ),
-		'singular_name'     => _x( 'Category', 'taxonomy singular name', 'videolinktextdomain' ),
-		'search_items'      => __( 'Search Categories', 'videolinktextdomain' ),
-		'all_items'         => __( 'All Categories', 'videolinktextdomain' ),
-		'parent_item'       => __( 'Parent Category', 'videolinktextdomain' ),
-		'parent_item_colon' => __( 'Parent Category:', 'videolinktextdomain' ),
-		'edit_item'         => __( 'Edit Category', 'videolinktextdomain' ),
-		'update_item'       => __( 'Update Category', 'videolinktextdomain' ),
-		'add_new_item'      => __( 'Add New Category', 'videolinktextdomain' ),
-		'new_item_name'     => __( 'New Category Name', 'videolinktextdomain' ),
-		'menu_name'         => __( 'Category', 'videolinktextdomain' ),
-	);
-	$args = array(
-		'labels' => $labels,
-		'description' => __( '', 'videolinktextdomain' ),
-		'hierarchical' => true,
-		'public' => true,
-		'publicly_queryable' => true,
-		'show_ui' => true,
-		'show_in_menu' => true,
-		'show_in_nav_menus' => true,
-		'show_in_rest' => false,
-		'show_tagcloud' => true,
-		'show_in_quick_edit' => true,
-		'show_admin_column' => false,
-	);
-	register_taxonomy( 'videocats', array('videolink', ), $args );
-
-}
-
-*/
 
 
 class videohelpmetabox {
@@ -162,14 +158,7 @@ class videohelpmetabox {
 			'type' => 'text',
 			'default' => ''
         ),
-		/*
-		array(
-			'label' => 'Video Priority',
-			'id' => 'videopriority',
-			'type' => 'number',
-			'default' => ''
-		),
-		*/
+		
 
 	);
 	public function __construct() {
@@ -247,82 +236,6 @@ if (class_exists('videohelpmetabox')) {
 
 
 
-
-
-
-
-// Create Shortcode videhelp
-// Use the shortcode: [videhelp category=""]
-
-/*
-add_shortcode( 'videohelp', 'create_videhelp_shortcode' );
-function create_videhelp_shortcode($atts) {
-	// Attributes
-	$atts = shortcode_atts(
-		array(
-			'category' => '',
-		),
-		$atts,
-		'videhelp'
-	);
-	// Attributes in var
-    $category = $atts['category'];
-    
-
-
-    ob_start();
-
-    //var_dump($category);
-    // Query Arguments
-    $args = array(
-        'post_type' => array('video_help'),
-        'ignore_sticky_posts' => true,
-        //'order' => 'DESC',
-        //'orderby' => 'meta_value_num',
-        //'meta_key' => 'videopriority',
-        
-
-        
-    );
-
-    if($category!=''){
-        $args['tax_query'] = array(
-            array(
-                'taxonomy' => 'videocats',
-                'field' => 'slug',
-                'terms' => $category
-            )
-        );
-    }
-
-    //pp($args);
-
-    // The Query
-    $getallvideos = new WP_Query( $args );
-
-    // The Loop
-    if ( $getallvideos->have_posts() ) {
-        while ( $getallvideos->have_posts() ) {
-            $getallvideos->the_post();
-              // echo the_title();
-        }
-    } else {
-        echo "nothing found";
-    } 
-    // Restore original Post Data 
-    wp_reset_postdata();
-
-
-	$output_string = ob_get_contents();
-	ob_end_clean();
-	return $output_string;
-	
-}
-
-*/
-
-
-
 class Video_Help_Custom_Page_Walker extends Walker_Page {
 
     function start_el(&$output, $page, $depth = 0, $args = array(), $current_page = 0) {
@@ -350,6 +263,9 @@ class Video_Help_Custom_Page_Walker extends Walker_Page {
 
 
 function customvideoviewrenderfunc(){
+
+		$titleLabel = get_option( 'video_help_title_label' );
+
 		$args_for_list_pages = array (
 			'post_type' => 'video_help',
 			'title_li' => '',
@@ -359,7 +275,7 @@ function customvideoviewrenderfunc(){
 	?>
 	
 	<div class="custom_toc_and_video_container">
-		<h1 class="wp-heading-inline">Table of Contents</h1>
+		<h1 class="wp-heading-inline"><?php echo ($titleLabel) ? $titleLabel : 'Table of Contents'; ?></h1>
 		<div class="custom_half_chapter">
 			<div class="custom_video_help_container">
 				
@@ -382,17 +298,10 @@ function customvideoviewrenderfunc(){
 			<div class="custom_post_content"></div>
 		</div>
 		
-	</div>
-
-	
+	</div>	
 	<?php 
 	
 }	
-
-
-
-
-
 
 
 add_action( 'wp_ajax_nopriv_getvideocontent', 'getvideohelpcontent_func' );
@@ -430,10 +339,12 @@ function getvideohelpcontent_func() {
 function customvideohelp_load_wp_admin_style($hook) {
 		
         // Load only on ?page=customviewvideo
-        if($hook != 'toplevel_page_customviewvideo') {
-			return;
-        }
+        //if($hook != 'toplevel_page_customviewvideo') {
+		//	return;
+        //}
         wp_enqueue_style( 'custom_wp_admin_css', CUSTOM_VIDEO_PLUGIN_URI . 'style.css' );
+
+        
 
         wp_enqueue_style( 'font-awesome-free', '//use.fontawesome.com/releases/v5.2.0/css/all.css' );
 		

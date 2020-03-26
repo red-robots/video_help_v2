@@ -1,35 +1,37 @@
-jQuery(document).ready(function(){
+jQuery(document).ready(function( $ ){
+
+	$( '.cpa-color-picker' ).wpColorPicker();
 	
-	jQuery('.custom_video_help_container a').click(function(event){
+	$('.custom_video_help_container a').click(function(event){
 		event.preventDefault();
-		console.log( jQuery(this).data('pageid'));
+		//console.log( jQuery(this).data('pageid'));
 		
 		
-		jQuery.ajax({
+		$.ajax({
 			url: customvideoadminscripts.adminajax,
 			type: 'post',
 			data: {
 				action: 'getvideocontent',
-				pageid : jQuery(this).data('pageid')
+				pageid : $(this).data('pageid')
 			},
 			
 			beforeSend: function() {
-				console.log("Loading");
+				//console.log("Loading");
 				//customspin
-				jQuery('.custom_post_title').html( '' );
-				jQuery('.custom_post_content').html( '' );				
-				jQuery('.custom_post_video').find('.embed-container').html( '' );				
+				$('.custom_post_title').html( '' );
+				$('.custom_post_content').html( '' );				
+				$('.custom_post_video').find('.embed-container').html( '' );				
 			
-				jQuery('.lds-dual-ring').show()
+				$('.lds-dual-ring').show()
 			},			
 			
 			success: function( data ) {
-				console.log(data);
+				//console.log(data);
 				
-				jQuery('.lds-dual-ring').hide()
-				jQuery('.custom_post_title').html( data.title );
-				jQuery('.custom_post_content').html( data.content );
-				jQuery('.custom_post_video').find('.embed-container').html( data.videoembed );
+				$('.lds-dual-ring').hide()
+				$('.custom_post_title').html( data.title );
+				$('.custom_post_content').html( data.content );
+				$('.custom_post_video').find('.embed-container').html( data.videoembed );
 				
 			}
 		})				

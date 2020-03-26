@@ -142,3 +142,30 @@
 	box-shadow: none;
 	text-shadow: none;
 }
+
+.clearfix{
+    clear: both;
+}
+
+.column_holder{
+    display: block;
+    clear: both;
+
+    .column-left, .column-right{
+        width: 49.5%;
+        display: inline-block;
+
+    }
+
+    .column-left{
+        float: left;
+    }
+
+    .column-right{
+        float: right;
+    }
+}
+
+.video_agency_input{
+    margin-bottom: 10px;
+}
