@@ -12,6 +12,9 @@ if( ! defined('ABSPATH') ){
     die('Hey! What are you doing here?');
 }
 
+define( 'CUSTOM_VIDEO_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
+define( 'CUSTOM_VIDEO_PLUGIN_URI', plugin_dir_url( __FILE__ ));
+
 /*
 if( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ){
     require_once dirname( __FILE__ ) . '/vendor/autoload.php';
@@ -52,8 +55,7 @@ function deactivate_video_help_plugin(){
 register_deactivation_hook( __FILE__, 'deactivate_video_help_plugin' );
 
 
-define( 'CUSTOM_VIDEO_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
-define( 'CUSTOM_VIDEO_PLUGIN_URI', plugin_dir_url( __FILE__ ));
+
 
 
 // Register Custom Post Type video_link
@@ -391,7 +393,8 @@ function update_field_order(){
 	$fields = explode('&', $_POST['field_id']);
 	//var_dump($fields);
 	foreach ( $fields as $position => $item ) {
-		$wpdb->query("UPDATE wp_posts SET menu_order=0 where id=$item");		
+		$value  = substr( $item, strpos( $item, '=') + 1 );
+		$wpdb->query("UPDATE wp_posts SET menu_order=$position where id=$value");		
 	}
 	die();
 }

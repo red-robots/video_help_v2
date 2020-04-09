@@ -41,7 +41,7 @@ jQuery(document).ready(function( $ ){
 		cursor:'move',
 		update:function(){
 			var order = $('#new_fields').sortable('serialize');
-			console.log('Order: ' + order );
+			//console.log('Order: ' + order );
 			$.ajax({
 				type: "POST",
 				url: customvideoadminscripts.adminajax,
