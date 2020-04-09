@@ -393,8 +393,11 @@ function update_field_order(){
 	$fields = explode('&', $_POST['field_id']);
 	//var_dump($fields);
 	foreach ( $fields as $position => $item ) {
-		$value  = substr( $item, strpos( $item, '=') + 1 );
-		$wpdb->query("UPDATE wp_posts SET menu_order=$position where id=$value");		
+		$value  	= (int) substr( $item, strpos( $item, '=') + 1 );
+		$value 		= filter_var( $value, FILTER_VALIDATE_INT ) ? $value : 0;
+		$position 	= filter_var($position, FILTER_VALIDATE_INT) ? $position : 0;
+		$query 		= sprintf("UPDATE wp_posts SET menu_order=%d where id=%d", $position, $value);
+		$wpdb->query($query);		
 	}
 	die();
 }

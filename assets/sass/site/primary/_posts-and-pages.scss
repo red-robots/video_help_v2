@@ -106,3 +106,8 @@
 h1.settings_roles{
     font-size: 26px;
 }
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited, a.ui-button, a:link.ui-button, a:visited.ui-button, .ui-button {
+    color: #0073aa;
+    text-decoration: none;
+}

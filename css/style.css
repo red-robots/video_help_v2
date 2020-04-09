@@ -106,3 +106,9 @@
     .column-right{
         float: right;
     }
+
+
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited, a.ui-button, a:link.ui-button, a:visited.ui-button, .ui-button {
+    color: #0073aa;
+    text-decoration: none;
+}
